@@ -1,0 +1,30 @@
+version: '2'
+catalog:
+  name: nextcloud template
+  version: 1.0.0
+  description: a nextcloud template
+  # minimum_rancher_version: # The minimum version of Rancher that supports the template, v1.0.1 and 1.0.1 are acceptable inputs
+  # maximum_rancher_version: # The maximum version of Rancher that supports the template, v1.0.1 and 1.0.1 are acceptable inputs
+  # upgrade_from: # The previous versions that this template can be upgraded from
+  questions: #Used to request user input for configuration options
+    - variable: admin_user
+      label: Admin User
+      description: |
+        The default admin user to be set up
+      default: admin
+      required: true
+      type: string
+    - variable: admin_pwd
+      label: Admin Password
+      description: |
+        The default admin password to be set up
+      default: admin
+      required: true
+      type: password
+    - variable: domain
+      label: Domain
+      description: |
+        The Domain used
+      default: ncloud.syntro.ch
+      required: true
+      type: string

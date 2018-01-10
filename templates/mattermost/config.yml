@@ -1,0 +1,8 @@
+name: NextCloud
+description: |
+  A Nextcloud template.
+version: 0
+category: Clouds
+maintainer: motius
+license: GPL
+projectURL: https://github.com/motius/dockerfiles/tree/master/nextcloud

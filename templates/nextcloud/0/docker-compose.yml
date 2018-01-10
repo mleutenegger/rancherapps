@@ -1,0 +1,49 @@
+version: '2'
+services:
+  syntronextcloud:
+    image: motius/nextcloud:12
+    restart: always
+    depends_on:
+      - syntronextcloudpostgres
+    environment:
+      - ADMIN_USER=${admin_user}
+      - ADMIN_PASSWORD=${admin_pwd}
+      - DOMAIN=${domain}
+      - DB_TYPE=pgsql
+      - DB_NAME=syntro_nextcloud
+      - DB_USER=syntro
+      - DB_PASSWORD="X[6hUtPRaJRGuZbQPFrwKVgRNexgq"
+      - DB_HOST=syntronextcloudpostgres
+      - TZ=Europe/Zurich
+    volumes:
+      - nextcloud-data:/data:rw
+      - nextcloud-config:/config:rw
+      - nextcloud-apps2:/apps2:rw
+      - nextcloud-themes:/nextcloud/themes:rw
+    labels:
+      - traefik.enable=true
+      - traefik.domain=${domain}
+      - traefik.frontend.rule=Host:${domain}
+      - traefik.port=8888
+    expose:
+      - "8888"
+  syntronextcloudpostgres:
+    image: postgres:9.5
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD="X[6hUtPRaJRGuZbQPFrwKVgRNexgq"
+      - POSTGRES_USER=syntro
+      - POSTGRES_DB=syntro_nextcloud
+    volumes:
+      - postgres:/var/lib/postgresql/data:rw
+volumes:
+  nextcloud-data:
+    driver: local
+  nextcloud-config:
+    driver: local
+  nextcloud-apps2:
+    driver: local
+  nextcloud-themes:
+    driver: local
+  postgres:
+    driver: local
